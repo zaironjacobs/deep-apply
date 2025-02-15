@@ -24,32 +24,20 @@ pip install deep-apply
 
 ### Usage
 
+#### Apply upper() on values
+
 ```python
 import deep_apply
 
 
-# 1. Create your function.
-#    This function will call upper() on strings.
+# 1. Create your callback function. Will call upper() on strings.
 def to_upper(value, **kwargs):
     """
-    To upper case.
+    To uppercase.
     """
 
-    key = kwargs.get("key")
-    depth = kwargs.get("depth")
-
-    ignore = False
-
-    # Ignore the key/field id everywhere (dictionaries or pydantic models)
-    if key == "id":
-        ignore = True
-
-    # Ignore the list of music found under hobbies
-    elif depth == "hobbies:music":
-        ignore = True
-
     # Apply upper() and return the value
-    if not ignore and isinstance(value, str):
+    if isinstance(value, str):
         return value.upper()
 
     return value
@@ -69,11 +57,11 @@ data = [
     }
 ]
 
-# 3. Apply function on the data.
+# 3. Run apply()
 data = deep_apply.apply(data=data, func=to_upper)
 ```
 
-### Result
+#### Result
 
 ```json
 [
@@ -94,4 +82,35 @@ data = deep_apply.apply(data=data, func=to_upper)
     }
   }
 ]
+```
+
+### Ignore keys
+
+You can get the current `key` or the current `depth` from `**kwargs` and add a condition e.g. to skip a specific key
+everywhere.
+
+```python
+def to_upper(value, **kwargs):
+    """
+    To uppercase.
+    """
+
+    key = kwargs.get("key")
+    depth = kwargs.get("depth")
+
+    ignore = False
+
+    # Ignore the key/field id everywhere (dictionaries or pydantic models)
+    if key == "id":
+        ignore = True
+
+    # Ignore the list of music found under hobbies
+    elif depth == "hobbies:music":
+        ignore = True
+
+    # Apply upper() and return the value
+    if not ignore and isinstance(value, str):
+        return value.upper()
+
+    return value
 ```
