@@ -30,9 +30,6 @@ import deep_apply
 
 # 1. Create your function.
 #    This function will call upper() on strings.
-#
-#    Note: If your function will only extract data, simply return the value 
-#    back as it is when done.
 def to_upper(value, **kwargs):
     """
     To upper case.
@@ -51,7 +48,7 @@ def to_upper(value, **kwargs):
     elif depth == "hobbies:music":
         ignore = True
 
-    # To upper
+    # Apply upper() and return the value
     if not ignore and isinstance(value, str):
         return value.upper()
 
