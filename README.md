@@ -52,7 +52,6 @@ data = [
             "id": "OlVZysGsIywW",
             "sport": ["football", "tennis"],
             "music": ["singing", "guitar", "piano"],
-            "random_numbers": [4, 10, 25],
         },
     }
 ]
@@ -66,18 +65,18 @@ data = deep_apply.apply(data=data, func=to_upper)
 ```json
 [
   {
-    "id": "pZnZMffPCpJx",
+    "id": "PZNZMFFPCPJX",
     "name": "JOHN DOE",
     "hobbies": {
-      "id": "OlVZysGsIywW",
+      "id": "OLVZYSGSIYWW",
       "sport": [
         "FOOTBALL",
         "TENNIS"
       ],
       "music": [
-        "singing",
-        "guitar",
-        "piano"
+        "SINGING",
+        "GUITAR",
+        "PIANO"
       ]
     }
   }
