@@ -1,20 +1,20 @@
 from deep_apply import constants
 
 
-def add_key_to_depth(key: str, depth: str | None) -> str:
+def add_key_to_depth_key(key: str, depth_key: str | None) -> str:
     """
-    Add key to depth.
+    Add key to depth key.
 
     :param key: The current key.
-    :param depth: The current depth.
+    :param depth_key: The current depth key.
     """
 
-    if depth:
-        new_depth = f"{depth}:{key}"
+    if depth_key:
+        new_depth_key = f"{depth_key}:{key}"
     else:
-        new_depth = key
+        new_depth_key = key
 
-    return new_depth
+    return new_depth_key
 
 
 def can_handle(

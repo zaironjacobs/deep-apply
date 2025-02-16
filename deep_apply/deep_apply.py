@@ -25,9 +25,10 @@ def __apply(
 
     data = kwargs["data"]
     apply_func: Callable = kwargs["apply_func"]
-    allowed_types: list[constants.SUPPORTED_TYPES] = kwargs.get("allowed_types", [])
-    key: str | None = kwargs.get("key")
-    depth: str | None = kwargs.get("depth")
+    allowed_types: list[constants.SUPPORTED_TYPES] = kwargs["allowed_types"]
+    key: str = kwargs["key"]
+    depth_key: str = kwargs["depth_key"]
+    depth_level: int = kwargs["depth_level"]
 
     if utils.is_list(data):
         if helpers.can_handle(
@@ -68,7 +69,14 @@ def __apply(
         return data
 
     else:
-        return apply_func(data, **{"key": key, "depth": depth})
+        return apply_func(
+            **{
+                "value": data,
+                "key": key,
+                "depth_key": depth_key,
+                "depth_level": depth_level,
+            }
+        )
 
 
 def apply(
@@ -106,4 +114,7 @@ def apply(
         data=copy.deepcopy(data),
         apply_func=func,
         allowed_types=allowed_types,
+        key="",
+        depth_key="",
+        depth_level=0,
     )

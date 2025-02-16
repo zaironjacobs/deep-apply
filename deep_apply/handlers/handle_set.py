@@ -9,10 +9,13 @@ def handle_set(apply: Callable, **kwargs) -> set:
     """
 
     data = kwargs["data"]
+    depth_level: int = kwargs.get("depth_level")
+
     data = list(data)
 
     for index, value in enumerate(data):
         kwargs["data"] = value
+        kwargs["depth_level"] = depth_level + 1
         data[index] = apply(
             **kwargs,
         )

@@ -8,7 +8,7 @@
 
 Deep traverse through an object and apply a function on its values.
 
-Supports the following objects:
+Supports the following object types:
 
 * Dictionaries
 * Lists
@@ -30,11 +30,16 @@ pip install deep-apply
 import deep_apply
 
 
-# 1. Create your callback function. Will call upper() on strings.
-def to_upper(value, **_kwargs):
+# 1. Create your callback function.
+def to_upper(value, **kwargs):
     """
     To uppercase.
     """
+    
+    # Other arguments passed to the callback function:
+    # key: str = kwargs["key"]
+    # dept_level: int = kwargs["depth_level"]
+    # depth_key: str = kwargs["depth_key"]
 
     # Apply upper() and return the value
     if isinstance(value, str):
@@ -60,65 +65,10 @@ data = [
 data = deep_apply.apply(data=data, func=to_upper)
 ```
 
-#### Result
-
-```json
-[
-  {
-    "id": "PZNZMFFPCPJX",
-    "name": "JOHN DOE",
-    "hobbies": {
-      "id": "OLVZYSGSIYWW",
-      "sport": [
-        "FOOTBALL",
-        "TENNIS"
-      ],
-      "music": [
-        "SINGING",
-        "GUITAR",
-        "PIANO"
-      ]
-    }
-  }
-]
-```
-
-### Ignore keys
-
-You can get the current `key` or the current `depth` from `**kwargs` and add a condition e.g. to skip a specific key
-everywhere.
-
-```python
-def to_upper(value, **kwargs):
-    """
-    To uppercase.
-    """
-
-    key = kwargs.get("key")
-    depth = kwargs.get("depth")
-
-    ignore = False
-
-    # Ignore the key/field id everywhere (dictionaries or pydantic models)
-    if key == "id":
-        ignore = True
-
-    # Ignore the list of music found under hobbies
-    elif depth == "hobbies:music":
-        ignore = True
-
-    # Apply upper() and return the value
-    if not ignore and isinstance(value, str):
-        return value.upper()
-
-    return value
-```
-
-### Only allow specific types
-
-If you only want to traverse through specific object types e.g. `lists` and `dictionaires`, use the argument
-`allowed_types`.
-
-```python
-data = deep_apply.apply(data=data, func=to_upper, allowed_types=["list", "dict"])
+```console
+[{'hobbies': {'id': 'OLVZYSGSIYWW',
+              'music': ['SINGING', 'GUITAR', 'PIANO'],
+              'sport': ['FOOTBALL', 'TENNIS']},
+  'id': 'PZNZMFFPCPJX',
+  'name': 'JOHN DOE'}]
 ```

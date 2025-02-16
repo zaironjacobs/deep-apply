@@ -4,13 +4,9 @@ from deep_apply import apply
 
 
 def my_func(value: str, **kwargs):
-    key = kwargs.get("key")
-    depth = kwargs.get("depth")
+    depth_key = kwargs["depth_key"]
 
-    if key == "id":
-        return value
-
-    if depth == "first_name" or depth == "child:first_name":
+    if depth_key == "first_name" or depth_key == "child:first_name":
         return value
 
     return value.upper()
@@ -33,17 +29,7 @@ class Parent(Person):
 parent = Parent(id="456def", first_name="John", last_name="Doe")
 
 
-def test_ignore_key():
-    data = parent
-    data = apply(
-        data=data,
-        func=my_func,
-    )
-
-    assert data.id == "456def" and data.child.id == "123abc"
-
-
-def test_ignore_key_depth():
+def test_ignore_depth_key():
     data = parent
     data = apply(
         data=data,

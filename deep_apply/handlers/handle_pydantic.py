@@ -11,12 +11,14 @@ def handle_pydantic_model(apply: Callable, **kwargs) -> BaseModel:
     """
 
     data = kwargs["data"]
-    depth: str | None = kwargs.get("depth")
+    depth_key: str | None = kwargs.get("depth_key")
+    depth_level: int = kwargs.get("depth_level")
 
     for key, value in iter(data):
         kwargs["key"] = key
         kwargs["data"] = value
-        kwargs["depth"] = helpers.add_key_to_depth(key=key, depth=depth)
+        kwargs["depth_key"] = helpers.add_key_to_depth_key(key=key, depth_key=depth_key)
+        kwargs["depth_level"] = depth_level + 1
         setattr(
             data,
             key,
