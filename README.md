@@ -35,7 +35,7 @@ def to_upper(value, **kwargs):
     """
     To uppercase.
     """
-    
+
     # Other arguments passed to the callback function:
     # key: str = kwargs["key"]
     # dept_level: int = kwargs["depth_level"]
@@ -54,7 +54,6 @@ data = [
         "id": "pZnZMffPCpJx",
         "name": "John Doe",
         "hobbies": {
-            "id": "OlVZysGsIywW",
             "sport": ["football", "tennis"],
             "music": ["singing", "guitar", "piano"],
         },
@@ -66,9 +65,14 @@ data = deep_apply.apply(data=data, func=to_upper)
 ```
 
 ```console
-[{'hobbies': {'id': 'OLVZYSGSIYWW',
-              'music': ['SINGING', 'GUITAR', 'PIANO'],
-              'sport': ['FOOTBALL', 'TENNIS']},
-  'id': 'PZNZMFFPCPJX',
-  'name': 'JOHN DOE'}]
+[
+    {
+        'id': 'PZNZMFFPCPJX',
+        'name': 'JOHN DOE',
+        'hobbies': {
+            'sport': ['FOOTBALL', 'TENNIS'],
+            'music': ['SINGING', 'GUITAR', 'PIANO']
+        }
+    }
+]
 ```
