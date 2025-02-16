@@ -41,16 +41,3 @@ def is_pydantic_model(data: Any) -> bool:
     """
 
     return isinstance(data, BaseModel)
-
-
-def set_current_depth(key: str, depth: str | None) -> str:
-    """
-    Set current depth.
-    """
-
-    if depth:
-        current_depth = f"{depth}:{key}"
-    else:
-        current_depth = key
-
-    return current_depth

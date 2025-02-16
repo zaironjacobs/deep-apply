@@ -2,7 +2,7 @@ from setuptools import setup
 from setuptools import find_packages
 
 name = "deep-apply"
-version = "1.0.0"
+version = "1.0.1"
 
 with open("README.md", "r") as fh:
     long_description = fh.read()

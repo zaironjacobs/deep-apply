@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from deep_apply import apply
 
 
-def my_func(value: str, **kwargs):
+def my_func(value: str, **_kwargs):
     return value.upper()
 
 

@@ -31,7 +31,7 @@ import deep_apply
 
 
 # 1. Create your callback function. Will call upper() on strings.
-def to_upper(value, **kwargs):
+def to_upper(value, **_kwargs):
     """
     To uppercase.
     """
@@ -56,7 +56,7 @@ data = [
     }
 ]
 
-# 3. Run apply()
+# 3. Run apply().
 data = deep_apply.apply(data=data, func=to_upper)
 ```
 
@@ -112,4 +112,13 @@ def to_upper(value, **kwargs):
         return value.upper()
 
     return value
+```
+
+### Only allow specific types
+
+If you only want to traverse through specific object types e.g. `lists` and `dictionaires`, use the argument
+`allowed_types`.
+
+```python
+data = deep_apply.apply(data=data, func=to_upper, allowed_types=["list", "dict"])
 ```
