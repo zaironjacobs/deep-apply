@@ -4,8 +4,8 @@ from setuptools import find_packages
 name = "deep-apply"
 version = "1.0.3"
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+with open("README.md", "r") as f:
+    long_description = f.read()
 
 requires = []
 
@@ -14,11 +14,7 @@ setup(
     version=version,
     author="Zairon Jacobs",
     author_email="zaironjacobs@gmail.com",
-    description=(
-        """
-        Deep traverse through an object and apply a function on its values.
-        """
-    ),
+    description="Deep traverse through an object and apply a function on its values.",
     long_description=long_description,
     url="https://github.com/zaironjacobs/deep-apply",
     download_url=f"https://github.com/zaironjacobs/deep-apply/archive/v{version}.tar.gz",
