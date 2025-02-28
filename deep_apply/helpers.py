@@ -23,7 +23,7 @@ def can_handle_object_type(
 ) -> bool:
     """
     Check if object type is allowed to be handled.
-    An empty list means all types are allowed to be handled.
+    An empty list as allowed_types means all types are allowed.
 
     :param allowed_types: A list of types allowed.
     :param type_to_check: Tye type to check.
