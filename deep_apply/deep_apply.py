@@ -31,7 +31,7 @@ def __apply(
     depth_level: int = kwargs["depth_level"]
 
     if utils.is_list(data):
-        if helpers.can_handle(
+        if helpers.can_handle_object_type(
             allowed_types=allowed_types, type_to_check=type(data).__name__
         ):
             return handle_list(__apply, **kwargs)
@@ -39,7 +39,7 @@ def __apply(
         return data
 
     elif utils.is_set(data):
-        if helpers.can_handle(
+        if helpers.can_handle_object_type(
             allowed_types=allowed_types, type_to_check=type(data).__name__
         ):
             return handle_set(__apply, **kwargs)
@@ -47,7 +47,7 @@ def __apply(
         return data
 
     elif utils.is_tuple(data):
-        if helpers.can_handle(
+        if helpers.can_handle_object_type(
             allowed_types=allowed_types, type_to_check=type(data).__name__
         ):
             return handle_tuple(__apply, **kwargs)
@@ -55,7 +55,7 @@ def __apply(
         return data
 
     elif utils.is_dict(data):
-        if helpers.can_handle(
+        if helpers.can_handle_object_type(
             allowed_types=allowed_types, type_to_check=type(data).__name__
         ):
             return handle_dict(__apply, **kwargs)
@@ -63,7 +63,9 @@ def __apply(
         return data
 
     elif utils.is_pydantic_model(data):
-        if helpers.can_handle(allowed_types=allowed_types, type_to_check="pydantic"):
+        if helpers.can_handle_object_type(
+            allowed_types=allowed_types, type_to_check="pydantic"
+        ):
             return handle_pydantic_model(__apply, **kwargs)
 
         return data

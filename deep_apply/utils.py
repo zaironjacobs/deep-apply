@@ -1,6 +1,10 @@
+import importlib
 from typing import Any
 
-from pydantic import BaseModel
+try:
+    pydantic = importlib.import_module("pydantic")
+except ModuleNotFoundError:
+    pydantic = None
 
 
 def is_dict(data: Any) -> bool:
@@ -40,4 +44,7 @@ def is_pydantic_model(data: Any) -> bool:
     Check if data is a pydantic model.
     """
 
-    return isinstance(data, BaseModel)
+    if not pydantic:
+        return False
+
+    return isinstance(data, pydantic.BaseModel)

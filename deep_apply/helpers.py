@@ -17,12 +17,12 @@ def add_key_to_depth_key(key: str, depth_key: str | None) -> str:
     return new_depth_key
 
 
-def can_handle(
+def can_handle_object_type(
     allowed_types: list[constants.SUPPORTED_TYPES],
     type_to_check: constants.SUPPORTED_TYPES,
 ) -> bool:
     """
-    Check if type is allowed to be handled.
+    Check if object type is allowed to be handled.
     An empty list means all types are allowed to be handled.
 
     :param allowed_types: A list of types allowed.

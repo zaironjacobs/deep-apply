@@ -1,11 +1,9 @@
-from typing import Callable
-
-from pydantic import BaseModel
+from typing import Callable, Any
 
 from deep_apply import helpers
 
 
-def handle_pydantic_model(apply: Callable, **kwargs) -> BaseModel:
+def handle_pydantic_model(apply: Callable, **kwargs) -> Any:
     """
     Handle pydantic model.
     """
