@@ -10,8 +10,7 @@ from deep_apply.handlers.handle_list import handle_list
 from deep_apply.handlers.handle_pydantic import handle_pydantic_model
 from deep_apply.handlers.handle_set import handle_set
 from deep_apply.handlers.handle_tuple import handle_tuple
-from deep_apply import constants
-
+from deep_apply.types import TAllowedObjectTypes
 
 T = TypeVar("T")
 
@@ -25,14 +24,16 @@ def __apply(
 
     data = kwargs["data"]
     apply_func: Callable = kwargs["apply_func"]
-    allowed_types: list[constants.SUPPORTED_TYPES] = kwargs["allowed_types"]
+    allowed_types: list[TAllowedObjectTypes] | None = kwargs["allowed_types"]
     key: str = kwargs["key"]
     depth_key: str = kwargs["depth_key"]
     depth_level: int = kwargs["depth_level"]
 
+    type_name: TAllowedObjectTypes = type(data).__name__
+
     if utils.is_list(data):
         if helpers.can_handle_object_type(
-            allowed_types=allowed_types, type_to_check=type(data).__name__
+            allowed_types=allowed_types, type_to_check=type_name
         ):
             return handle_list(__apply, **kwargs)
 
@@ -40,7 +41,7 @@ def __apply(
 
     elif utils.is_set(data):
         if helpers.can_handle_object_type(
-            allowed_types=allowed_types, type_to_check=type(data).__name__
+            allowed_types=allowed_types, type_to_check=type_name
         ):
             return handle_set(__apply, **kwargs)
 
@@ -48,7 +49,7 @@ def __apply(
 
     elif utils.is_tuple(data):
         if helpers.can_handle_object_type(
-            allowed_types=allowed_types, type_to_check=type(data).__name__
+            allowed_types=allowed_types, type_to_check=type_name
         ):
             return handle_tuple(__apply, **kwargs)
 
@@ -56,7 +57,7 @@ def __apply(
 
     elif utils.is_dict(data):
         if helpers.can_handle_object_type(
-            allowed_types=allowed_types, type_to_check=type(data).__name__
+            allowed_types=allowed_types, type_to_check=type_name
         ):
             return handle_dict(__apply, **kwargs)
 
@@ -84,7 +85,7 @@ def __apply(
 def apply(
     data: T,
     func: Callable,
-    allowed_types: list[constants.SUPPORTED_TYPES] = None,
+    allowed_types: list[TAllowedObjectTypes] | None = None,
 ) -> T:
     """
     Deep traverse through an object and apply a function on its values.
@@ -101,15 +102,12 @@ def apply(
     :param allowed_types: Optional - Only traverse through these object types.
     """
 
-    if allowed_types is None:
-        allowed_types = []
-
     if allowed_types:
-        supported_types_set = set(get_args(constants.SUPPORTED_TYPES))
-        for _type in allowed_types:
-            if _type not in supported_types_set:
+        supported_types_set = set(get_args(TAllowedObjectTypes))
+        for allowed_type in allowed_types:
+            if allowed_type not in supported_types_set:
                 raise DeepApplyException(
-                    f"Invalid type received in allowed_types: {_type}"
+                    f"Invalid type received in allowed_types: {allowed_type}"
                 )
 
     return __apply(

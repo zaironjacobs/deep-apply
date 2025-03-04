@@ -7,6 +7,13 @@ def my_func(value: str, **_kwargs):
     return value.upper()
 
 
+def test_not_allow_any_types():
+    data = {"first_name": "John", "last_name": "Doe"}
+    data = apply(data=data, func=my_func, allowed_types=[])
+
+    assert data["first_name"] == "John" and data["last_name"] == "Doe"
+
+
 def test_not_allow_dict():
     data = {"first_name": "John", "last_name": "Doe"}
     data = apply(data=data, func=my_func, allowed_types=["pydantic"])
