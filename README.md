@@ -38,13 +38,14 @@ def to_upper(value, **kwargs):
 
     # Other arguments passed to the callback function:
     # key: str = kwargs["key"]
-    # dept_level: int = kwargs["depth_level"]
+    # depth_level: int = kwargs["depth_level"]
     # depth_key: str = kwargs["depth_key"]
 
     # Apply upper() and return the value
     if isinstance(value, str):
         return value.upper()
-
+    
+    # Always return the unedited value
     return value
 
 
