@@ -1,7 +1,5 @@
 import copy
-from typing import Callable, TypeVar
-
-from typing_extensions import get_args
+from typing import Callable, TypeVar, get_args
 
 from deep_apply import utils, helpers
 from deep_apply.exceptions import DeepApplyException
@@ -98,7 +96,7 @@ def apply(
      * Pydantic models
 
     :param data: The data.
-    :param func: Function to apply on data values.
+    :param func: Function to apply on values.
     :param allowed_types: Optional - Only traverse through these object types.
     """
 
